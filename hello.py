@@ -10,3 +10,12 @@ Type "copyright", "credits" or "license()" for more information.
 >>> main()
 Hello, instructor!
 >>> 
+def main():
+	print("Hello, instructor!")
+	print ("Good-bye!")
+
+	
+>>> main()
+Hello, instructor!
+Good-bye!
+>>> 

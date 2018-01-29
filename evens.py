@@ -1,5 +1,6 @@
 Python 3.5.4 (v3.5.4:3f56838, Aug  8 2017, 02:17:05) [MSC v.1900 64 bit (AMD64)] on win32
 Type "copyright", "credits" or "license()" for more information.
+# A Simple Loop; pt 2 in LAB 2
 >>> for i in range(10):
 	print(i)
 
@@ -42,3 +43,15 @@ Type "copyright", "credits" or "license()" for more information.
 18
 20
 >>> 
+======================= RESTART: C:/Python35/evens.py ========================
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+>>>

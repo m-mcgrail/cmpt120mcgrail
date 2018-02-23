@@ -10,11 +10,12 @@ def names():
     last = input("Please enter last name:")
     return first, last
 #lab 4 part 2 modular design 2
+#lab 4 part 3 improvements - lowercase
 def username():
     names()
     first, last = names()
     uname = first [:7] + '.' + last[:7]
-    return print("Username is:", uname)
+    return print("Username is:", uname.lower())
 #lab 4 part 2 modular design 3
 def password():
    passwd = input("Create a new password that is over 8 characters: ")

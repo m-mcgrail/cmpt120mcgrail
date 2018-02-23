@@ -20,11 +20,20 @@ def username():
 def password():
    passwd = input("Create a new password that is over 8 characters: ")
    return passwd;
-
+#lab 4 part 3 improvements 
+def strength():
+    srg = input(print("Do you feel that your password is strong? Y/N"))
+    'Y', 'yes' = True
+    'N', 'no' = False
+        if True:
+            print("Good job")
+            if False:
+                print("Change it") 
 def main():
     username()
     password()
     print("Account configured. Your new email adress is", uname + "@marist.edu")
     print("Account password is", passwd) 
+    strength()
 main()
 

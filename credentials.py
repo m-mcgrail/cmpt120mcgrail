@@ -4,6 +4,7 @@
 # Author: Mary McGrail
 # Created: 2018-02-21
 
+#Lab 4 Final
 #lab 4 part 2 modular design
 def names():
     first = input("Please enter first name:")
@@ -15,10 +16,11 @@ def username():
     names()
     first, last = names()
     uname = first [:7] + '.' + last[:7]
-    return print("Username is:", uname.lower())
+    return print("Account configured. Your new email adress is", uname.lower() + "@marist.edu")
 #lab 4 part 2 modular design 3
+#lab 4 part 3 improvements - password cases
 def password():
-   passwd = input("Create a new password that is over 8 characters: ")
+   passwd = input("Create a new password that is over 8 characters, including both upper and lower case letters: ")
    return passwd;
 #lab 4 part 3 improvements 
 def strength():
@@ -32,8 +34,6 @@ def strength():
 def main():
     username()
     password()
-    print("Account configured. Your new email adress is", uname + "@marist.edu")
-    print("Account password is", passwd) 
     strength()
 main()
 

@@ -15,16 +15,15 @@ def username():
     first, last = names()
     uname = first [:7] + '.' + last[:7]
     return print("Username is:", uname)
+#lab 4 part 2 modular design 3
+def password():
+   passwd = input("Create a new password that is over 8 characters: ")
+   return passwd;
+
 def main():
-    names()
-    first, last = names()
-# modified to generate a Marist-style username
-    uname = first [:7] + '.' + last [:7] 
-    print("Username is:", uname)
-# ask user to create a new password
-    passwd = input("Create a new password that is over 8 characters: ")
-# modified to ensure the password has at least 8 characters through asking nicely
-    print(passwd)
+    username()
+    password()
     print("Account configured. Your new email adress is", uname + "@marist.edu")
     print("Account password is", passwd) 
 main()
+

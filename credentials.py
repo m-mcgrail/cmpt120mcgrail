@@ -9,6 +9,12 @@ def names():
     first = input("Please enter first name:")
     last = input("Please enter last name:")
     return first, last
+#lab 4 part 2 modular design 2
+def username():
+    names()
+    first, last = names()
+    uname = first [:7] + '.' + last[:7]
+    return print("Username is:", uname)
 def main():
     names()
     first, last = names()

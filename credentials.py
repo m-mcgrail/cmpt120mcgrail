@@ -3,10 +3,15 @@
 # Lab #5 – Working with Strings and Functions
 # Author: Mary McGrail
 # Created: 2018-02-21
+
+#lab 4 part 2 modular design
+def names():
+    first = input("Please enter first name:")
+    last = input("Please enter last name:")
+    return first, last
 def main():
-# get user's first and last names
-    first = input("Enter your first name: ")
-    last = input("Enter your last name: ")
+    names()
+    first, last = names()
 # modified to generate a Marist-style username
     uname = first [:7] + '.' + last [:7] 
     print("Username is:", uname)

@@ -38,11 +38,15 @@ def createCalculatorButtons():
         for j in range(4):
             buttons[i][j] = calcButton(j * 80, i * 80 + 100, calcGrid[i][j])
 
+#calculator functions
 def checkInt(toCheck):
     return toCheck == '0' or toCheck == '1' or toCheck == '2' or toCheck == '3' or toCheck == '4' or toCheck == '5' or toCheck == '6' or toCheck == '7' or toCheck == '8' or toCheck == '9'
 
 def checkOperator(toCheck):
-    return toCheck == '/' or toCheck == '*' or toCheck == '+' or toCheck == '-' or toCheck == '+/-'
+    return toCheck == '/' or toCheck == '*' or toCheck == '+' or toCheck == '-'
+
+def checkSignChange(toCheck):
+    return toCheck == '+/-'
 
 def checkEnter(toCheck):
     return toCheck == '='
@@ -50,12 +54,10 @@ def checkEnter(toCheck):
 def inceaseNumber(num1, num2):
     if(num1 == 0) :
         return num2
-        print ('Fas')
+       
     else :
         return (num1 * 10) + num2
-        print ('Nefas')
-
-#calculator functions
+       
 def add(x, y):
    return x + y
 
@@ -80,28 +82,9 @@ def computation(num1, num2, operation):
         return multiply(num1, num2)
     if(operation == '/'):
         return divide(num1, num2)
-
-def answer(val_1, val_2):
-    val_1 = int(input(displayTextElement))
-    oper = input('+', '-', '*', '/', '+/-', '=')
-    val_2 = int(input(displayTextElement))
-    answer = ()
-    if oper == '+':
-        return(val_1, "+", val_2, add(val_1, val_2))
-    elif oper == '-':
-        return(val_1, '-', val_2, subtract(val_1, val_2))
-    elif oper == '*':
-        return(val_1, '*', val_2, multiply(val_1, val_2))
-    elif oper == '/':
-        return(val_1, '/', val_2, divide(val_1, val_2))
-    elif oper == '+/-':
-        return(val_1, '+/-', sign(val_1))
-    elif oper == '=':
-        return answer
-    else:
-        print("Invalid input")
-    print(answer)
-
+    if(operation == '+/-'):
+        return sign(num1)
+#Creates Calculator
 def main():
     createCalculatorButtons()
     displayString = ''
@@ -128,18 +111,22 @@ def main():
             if (checkOperator(str(calcGrid[row][col]))):
                 operation = calcGrid[row][col]
 
-            if (checkEnter(str(calcGrid[row][col]))):
+            if(checkSignChange(str(calcGrid[row][col]))):
+                displayString = str(computation(firstNum, secondNum, '+/-'))
                 firstNum = computation(firstNum, secondNum, operation)
                 secondNum = 0
                 operation = ''
+            elif (checkEnter(str(calcGrid[row][col]))):
                 displayString = str(computation(firstNum, secondNum, operation))
+                firstNum = computation(firstNum, secondNum, operation)
+                secondNum = 0
+                operation = ''
             else :
                 if(len(operation) == 0):
                     displayString = (str(firstNum) + operation)
                 else:
                     displayString = (str(firstNum) + operation + str(secondNum))
             
-            #print (len(displayString))
 
             displayTextElement.undraw()
             displayTextElement = Text(Point(300 - (len(displayString) * 7), 50), displayString)
@@ -148,10 +135,6 @@ def main():
             for j in range(4):
                 if not(i == row and j == col):
                     buttons[i][j].setFill('cyan')
-    val_1 = int(input(calcGrid[row][col]))
-    val_2 = int(input(calcGrid[row][col]))
-    answer(val_1, val_2)
-         
 
         
 main()

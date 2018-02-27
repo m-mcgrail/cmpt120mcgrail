@@ -25,12 +25,12 @@ def password():
 #lab 4 part 3 improvements 
 def strength():
     srg = input(print("Do you feel that your password is strong? Y/N"))
-    'Y', 'yes' = True
-    'N', 'no' = False
-        if True:
-            print("Good job")
-            if False:
-                print("Change it") 
+    #'Y', 'yes' = True
+    #'N', 'no' = False
+    if True:
+        print("Good job")
+        if False:
+            print("Change it") 
 def main():
     username()
     password()

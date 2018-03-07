@@ -10,7 +10,7 @@ calcGrid = [
     [1, 2, 3, '*', 'M-'],
     ['.', 0, '+/-', '/', 'MR'],
     ['^2', '%', '1/x', 'SQRT', 'MS'],
-    ['', '', '=', '', '']
+    ['', '', '=', '', 'C']
     
 ]
 buttons = [['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', '']]
@@ -54,9 +54,15 @@ def checkSignChange(toCheck):
 #adding decimals
 def checkDecimal (toCheck):
     return toCheck == '.'
+#memory functions
+def checkMem (toCheck):
+    return toCheck == 'MC' or toCheck == 'M+' or toCheck =='M-' or toCheck == 'MR' or toCheck == 'MS'
 
 def checkEnter(toCheck):
     return toCheck == '='
+#clear function
+def checkClear(toCheck):
+    return toCheck == 'C'
 
 def inceaseNumber(num1, num2):
     if(num1 == 0) :
@@ -115,6 +121,29 @@ def computation(num1, num2, operation):
         return reciprocal(num1)
     if(operation == '.'):
         return decimal(num1, num2)
+#memory functions
+def memory(displayString, operation):
+    if(operation =='MS'):
+        savedMem = int(displayString)
+        return savedMem
+    if(operation == 'M+'):
+       savedMem = int(displayString) + savedMem
+       return savedMem
+    if(operation == 'MC'):
+        savedMem = 0
+        return savedMem
+    if(operation == 'MR'):
+        return savedMem
+    if(operation == 'M-'):
+        savedMem = int(displayString) - savedMem
+        return savedMem
+        
+#clear function
+def clear(operation):
+    if(operation == 'C'):
+        displayString = str(0)
+        return displayString
+    
 #Creates Calculator
 def main():
     createCalculatorButtons()
@@ -126,6 +155,7 @@ def main():
     firstNum = 0
     secondNum = 0
     operation = ''
+    savedMem = 0
     
     while 1 == 1:
         
@@ -152,6 +182,17 @@ def main():
                     firstNum = computation(firstNum, secondNum, operation)
                     secondNum = 0
                     operation = ''
+                #clear function
+                if(checkClear(str(calcGrid[row][col]))):
+                    displayString = str(clear(calcGrid[row][col]))
+                    firstNum = 0
+
+                #memory functions
+                if(checkMem(str(calcGrid[row][col]))):
+                    operation = calcGrid[row][col]
+                    displayString = str(computation(firstNum, secondNum, operation))
+                    savedMem = memory(displayString, operation)    
+                    
                 elif (checkEnter(str(calcGrid[row][col]))):
                     displayString = str(computation(firstNum, secondNum, operation))
                     firstNum = computation(firstNum, secondNum, operation)
@@ -164,15 +205,11 @@ def main():
                         displayString = (str(firstNum) + operation + str(secondNum))
             else:
                 if(checkInt(str(calcGrid[row][col]))):
-                    #print(firstNum)
-                    #print(secondNum)
                     if(secondNum == 0):
-                        print('Fas Unos')
                         firstNum = decimal(firstNum, calcGrid[row][col])
                         nextDecimal = False
                         displayString = str(firstNum)
                     else:
-                        print('Fas Duos')
                         secondNum = decimal(secondNum, calcGrid[row][col])
                         nextDecimal = False
                         displayString = str(firstNum) + operation + str(secondNum)

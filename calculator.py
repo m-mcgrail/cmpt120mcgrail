@@ -67,7 +67,7 @@ def inceaseNumber(num1, num2):
 #operations
 #adding decimals
 def decimal(x, y):
-    return x + '.' + y
+    return x +  (y / 10)
 
 def add(x, y):
    return x + y
@@ -113,6 +113,8 @@ def computation(num1, num2, operation):
         return square(num1)
     if(operation == '1/x'):
         return reciprocal(num1)
+    if(operation == '.'):
+        return decimal(num1, num2)
 #Creates Calculator
 def main():
     createCalculatorButtons()
@@ -120,6 +122,7 @@ def main():
     displayTextElement = Text(Point(0, 50), "")
     displayTextElement.draw(win)
 
+    nextDecimal = False
     firstNum = 0
     secondNum = 0
     operation = ''
@@ -131,35 +134,48 @@ def main():
         if row >=0:
             buttons[row][col].setFill('pink1')
             
-            if (checkInt(str(calcGrid[row][col]))):
-                if(len(operation) == 0):
-                    firstNum = inceaseNumber(firstNum, calcGrid[row][col])
-                else :
-                    secondNum = inceaseNumber(secondNum, calcGrid[row][col])
+            if(nextDecimal != True):
+                if (checkInt(str(calcGrid[row][col]))):
+                    if(len(operation) == 0):
+                        firstNum = inceaseNumber(firstNum, calcGrid[row][col])
+                    else :
+                        secondNum = inceaseNumber(secondNum, calcGrid[row][col])
 
-            if (checkOperator(str(calcGrid[row][col]))):
-                operation = calcGrid[row][col]
-            #adding decimals
-            if (checkDecimal(str(calcGrid[row][col]))):
-                decimal = calcGrid[row][col]
-                displayString = decimal(firstNum, secondNum)
-            
-            if(checkSignChange(str(calcGrid[row][col]))):
-                displayString = str(computation(firstNum, secondNum, '+/-'))
-                firstNum = computation(firstNum, secondNum, operation)
-                secondNum = 0
-                operation = ''
-            elif (checkEnter(str(calcGrid[row][col]))):
-                displayString = str(computation(firstNum, secondNum, operation))
-                firstNum = computation(firstNum, secondNum, operation)
-                secondNum = 0
-                operation = ''
-            else :
-                if(len(operation) == 0):
-                    displayString = (str(firstNum) + operation)
-                else:
-                    displayString = (str(firstNum) + operation + str(secondNum))
-            
+                if (checkOperator(str(calcGrid[row][col]))):
+                    operation = calcGrid[row][col]
+                #adding decimals
+                if (checkDecimal(str(calcGrid[row][col]))):
+                    nextDecimal = True
+                                    
+                if(checkSignChange(str(calcGrid[row][col]))):
+                    displayString = str(computation(firstNum, secondNum, '+/-'))
+                    firstNum = computation(firstNum, secondNum, operation)
+                    secondNum = 0
+                    operation = ''
+                elif (checkEnter(str(calcGrid[row][col]))):
+                    displayString = str(computation(firstNum, secondNum, operation))
+                    firstNum = computation(firstNum, secondNum, operation)
+                    secondNum = 0
+                    operation = ''
+                else :
+                    if(len(operation) == 0):
+                        displayString = (str(firstNum) + operation)
+                    else:
+                        displayString = (str(firstNum) + operation + str(secondNum))
+            else:
+                if(checkInt(str(calcGrid[row][col]))):
+                    #print(firstNum)
+                    #print(secondNum)
+                    if(secondNum == 0):
+                        print('Fas Unos')
+                        firstNum = decimal(firstNum, calcGrid[row][col])
+                        nextDecimal = False
+                        displayString = str(firstNum)
+                    else:
+                        print('Fas Duos')
+                        secondNum = decimal(secondNum, calcGrid[row][col])
+                        nextDecimal = False
+                        displayString = str(firstNum) + operation + str(secondNum)
 
             displayTextElement.undraw()
             displayTextElement = Text(Point(300 - (len(displayString) * 7), 50), displayString)

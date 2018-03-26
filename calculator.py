@@ -121,8 +121,11 @@ def computation(num1, num2, operation):
         return reciprocal(num1)
     if(operation == '.'):
         return decimal(num1, num2)
+    return num1
 #memory functions
+# There is a problem with the memory operations
 def memory(displayString, operation):
+    print(displayString)
     if(operation =='MS'):
         savedMem = int(displayString)
         return savedMem
@@ -191,6 +194,7 @@ def main():
                 if(checkMem(str(calcGrid[row][col]))):
                     operation = calcGrid[row][col]
                     displayString = str(computation(firstNum, secondNum, operation))
+                    print(displayString)
                     savedMem = memory(displayString, operation)    
                     
                 elif (checkEnter(str(calcGrid[row][col]))):

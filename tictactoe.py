@@ -2,6 +2,7 @@
 # Lab #6 – Lists and Error Handling
 # Author: Mary McGrail
 # Created: 3/26/18
+
 board = [
     ['', '', ''],
     ['', '', ''],
@@ -10,9 +11,8 @@ board = [
 player = ""
 row = 0
 col = 0
-#where the first '' in row 1 has the identity [0][0]
-#and the second '' in row 1 is [0][1] and so on
-def printBoard(board):
+
+def printBoard(loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22):
     loc00 = ' '
     loc01 = ' '
     loc02 = ' '
@@ -30,6 +30,7 @@ def printBoard(board):
     print("+-----------+")
     print('|', loc20, '|', loc21, '|', loc22, '|')
     print("+-----------+")
+    return loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22
 
 def getPlayerMove(row, col):
     #this works fine, can get values ok
@@ -53,7 +54,7 @@ def getPlayerMove(row, col):
     else: 
         return (row, col)    
 
-def markBoard(board, row, col, player, loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22):
+def markBoard(board, row, col, player,loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22):
     loc00 = ' '
     loc01 = ' '
     loc02 = ' '
@@ -63,53 +64,42 @@ def markBoard(board, row, col, player, loc00, loc01, loc02, loc10, loc11, loc12,
     loc20 = ' '
     loc21 = ' '
     loc22 = ' '
-    while player == 1:
-        if col == 0:
-            while row ==0:
-               return loc00 == "x" 
-            while row == 1:
-               return loc01 == "x"
-            while row ==2:
-               return loc02 == "x"
-        elif col == 1:
-            while row == 0:
-               return loc10 == "x"
-            while row == 1:
-               return loc11 == "x"
-            while row ==2:
-               return loc12 == "x"
-        elif col == 2:
-            while row == 0:
-               return loc20 == "x"
-            while row == 1:
-               return loc21 == "x"
-            while row == 2:
-               return loc22 == "x"
-    board = [
-        ['|', loc00, '|', loc01, '|', loc02, '|'],
-        ['|', loc10, '|', loc11, '|', loc12, '|'],
-        ['|', loc20, '|', loc21, '|', loc22, '|']
-        ]
-def printRow(board):
-    loc00 = ' '
-    loc01 = ' '
-    loc02 = ' '
-    loc10 = ' '
-    loc11 = ' '
-    loc12 = ' '
-    loc20 = ' '
-    loc21 = ' '
-    loc22 = ' '
-    markBoard(board, player, row, col, loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
-    #eleven dashes for fully extended lines
-    print("+-----------+")
-    print('|', loc00, '|', loc01, '|', loc02, '|')
-    print("+-----------+")
-    print('|', loc10, '|', loc11, '|', loc12, '|')
-    print("+-----------+")
-    print('|', loc20, '|', loc21, '|', loc22, '|')
-    print("+-----------+")
-    
+    col = 0
+    row = 0
+    row, col = getPlayerMove(row, col)
+    if col == 0:
+        if row ==0:
+            loc00 = "x"
+            
+        elif row == 1:
+            loc01 = "x"
+             
+        elif row ==2:
+            loc02 = "x"
+            
+    elif col == 1:
+         if row == 0:
+            loc10 = "x"
+            
+         elif row == 1:
+            loc11= "x"
+            
+         elif row ==2:
+            loc11 = "x"
+            
+    elif col == 2:
+        if row == 0:
+            loc20 = "x"
+            
+        elif row == 1:
+            loc21 = "x"
+            
+        elif row == 2:
+            loc22 ="x"
+              
+    return loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22
+
+
 def hasBlanks(board):
     loc00 = ' '
     loc01 = ' '
@@ -161,8 +151,8 @@ def main():
     row = 0
     col = 0
     while hasBlanks(board):
-        printBoard(board)
-        row,col = getPlayerMove(row, col)
-        markBoard(board,row,col,player,loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
+        printBoard(loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
+        markBoard(board,row,col,player, loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
         player = player % 2 + 1 # switch player for next turn
 main()
+ 

@@ -3,8 +3,7 @@
 from graphics import *
 from button import Button
 import math
-
-runDisp = Text(Point(6.75,6), "") 
+ 
 def createCalculatorGui():
     #changed dimensions to make room for scientific mode
     win = GraphWin("calculator", 900, 500)
@@ -18,9 +17,10 @@ def createCalculatorGui():
           (1,5,'log'), (2,5,'x^y'), (3,5,'MC'),(4,5,'M+'),(5,5,'M-'),(6,5,'MR'),(7,5,'MS')]
     
     buttons = createButtons(bSpecs, win)
-    display = createDisplay(win)     
-    return buttons, display, win    
-    
+    display = createDisplay(win)
+    runDisp = runningDisplay(win)
+    return buttons, display, win, runDisp
+
 def createButtons(bSpecs, win):
     buttons = []
     for cx, cy, label in bSpecs:
@@ -44,12 +44,19 @@ def runningDisplay(win):
     rd = Rectangle(Point(5.5, 5.75), Point(7.4, 6.5))
     rd.setFill('azure2')
     rd.draw(win)
-    word = Text(Point(6.75,6), "")
-    word.draw(win)
-    word.setFace("courier")
-    word.setStyle("bold")
-    word.setSize(12)
-    return word
+    text = Text(Point(6.75,6), "")
+    text.draw(win)
+    text.setFace("courier")
+    text.setStyle("bold")
+    text.setSize(16)
+    return text
+    #word = Text(Point(6.75,6), "")
+    #word.draw(win)
+    #word.setFace("courier")
+    #word.setStyle("bold")
+    #word.setSize(12)
+    #return word
+
 def getButtonPressed(buttons, calc):
     while True:
         p = calc.getMouse()
@@ -57,10 +64,10 @@ def getButtonPressed(buttons, calc):
             if b.clicked(p):
                 return b.getLabel()
 
-def processButton(key, display, memory):
+def processButton(key, display, runDisp, memory):
     text = display.getText()
-    #word = display.getText()
     memory = 0
+    base = math.e
     if key == "<-":
         display.setText(text[:-1])
     elif key == "C":
@@ -78,19 +85,34 @@ def processButton(key, display, memory):
         memory = display.setText(memory)
     #science keys
     elif key == "log":
-        display.setText(math.log(text[base]))
+        display.setText(math.log10(int(text)))
     elif key == "x^y":
         display.setText(int(text)**int(text))
     elif key == "sin^-1":
         display.setText(math.asin(int(text)))
+        try:
+                result = (math.asin(int(text)))
+        except:
+                print("Unable to divide by 0")
+                result = 0
     elif key == "sin":
         display.setText(math.sin(int(text)))
     elif key == "cos^-1":
         display.setText(math.acos(int(text)))
+        try:
+                result = (math.acos(int(text)))
+        except:
+                print("Unable to divide by 0")
+                result = 0
     elif key == "cos":
         display.setText(math.cos(int(text)))
     elif key == "tan^-1":
         display.setText(math.atan(int(text)))
+        try:
+                result = (math.atan(int(text)))
+        except:
+                print("Unable to divide by 0")
+                result = 0
     elif key == "tan":
         display.setText(math.tan(int(text)))
     elif key == "ln":
@@ -107,19 +129,15 @@ def processButton(key, display, memory):
         display.setText(result)
     else:
         display.setText(text + key)
-
+    runDisp.setText(text + key)
 def main():
-    buttons, display, calc = createCalculatorGui()
-    #runningDisplay(win)
-    runDisp = Text(Point(6.75,6), "")
-    #runDisp.draw(win)
-    #runDisp = Text(Point(6.75 - (len(display)), 6), display)
+    buttons, display, calc, runDisp = createCalculatorGui()
     memory = 0
     while True:
         key = getButtonPressed(buttons, calc)
         print(key)
-        processButton(key, display, memory)
-        
+        processButton(key, display, runDisp, memory)
+
 
 main()
 

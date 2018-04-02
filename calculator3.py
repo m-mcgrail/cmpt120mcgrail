@@ -3,7 +3,9 @@
 from graphics import *
 from button import Button
 import math
- 
+
+# JA: There seems to be a problem with the clear button
+
 def createCalculatorGui():
     #changed dimensions to make room for scientific mode
     win = GraphWin("calculator", 900, 500)

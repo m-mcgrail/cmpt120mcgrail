@@ -152,6 +152,7 @@ def main():
     col = 0
     while hasBlanks(board):
         printBoard(loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
+        # JA: You have to get the output of this and set the cell
         markBoard(board,row,col,player, loc00, loc01, loc02, loc10, loc11, loc12, loc20, loc21, loc22)
         player = player % 2 + 1 # switch player for next turn
 main()

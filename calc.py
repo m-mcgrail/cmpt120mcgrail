@@ -65,9 +65,11 @@ def processButton(key, display, runDisp, memory):
     base = math.e
     if key == "<-":
         display.setText(text[:-1])
+    #fixed the clear button
     elif key == "C":
         display.setText("")
-        runDisp.setText("")
+        key = ""
+        text = ""
     #memory keys
     elif key == "MC":
         memory = 0
@@ -125,7 +127,8 @@ def processButton(key, display, runDisp, memory):
         display.setText(result)
     else:
         display.setText(text + key)
-    runDisp.setText(str(text) + key)
+    #fixed clear on second display    
+    runDisp.setText(str(text) + str(key))
 def main():
     buttons, display, calc, runDisp = createCalculatorGui()
     memory = 0

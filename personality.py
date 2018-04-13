@@ -157,6 +157,5 @@ def main():
         curEmo = currentEmotion(rew, pun, thr, lol, action, curEmo)
         output(curEmo, emo1, emo2, emo3, emo4, emo5, emo6, emo7)
     else:
-        print("Goodbye!")
-    
+        print("Goodbye!")    
 main()    

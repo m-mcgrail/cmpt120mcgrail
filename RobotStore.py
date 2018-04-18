@@ -4,7 +4,7 @@
 
 #look up how to better make a class
 #lab 9 part 1.a
-class ProductInfo:
+class Product:
     def __init__(self, name, price, stock):
         self.name = name
         self.price = price
@@ -16,24 +16,42 @@ class ProductInfo:
     def getQuantity(self):
         return self.stock
     #lab 9 part 1.b
+
+    def checkStock(self, count):
+        if(self.stock >= count):
+            return True
+        else:
+            return False
+
     def stockQuantity(self, name, stock):
         for i in range(0,len(name)):
             if stock[i] > 0:
                 print("There are", int(stock), name, "left in stock")
+
     #lab 9 part 1.c
-    def costTotal(self, name, price):
-        orderQuan = 0 + #how much of the product are they buying
-        itemTotal = orderquan * self.price
-        costTotal = itemTotal + itemTotal
+    def costTotal(self, count):
+        return self.price * count
+
     #lab 9 part 1.d
-    def depleteStock(self, name, stock):
-        orderQuan = #as seen above
-        stock = stock - orderQuan
-        for i in range(0,len(name)):
-            if stock[i] > 0:
-                print("There are", int(stock), name, "left in stock")
-                
-#OG code below
+    def depleteStock(self, count):
+        self.stock -= count
+
+#lab 9 part 2                
+productList = [
+        Product("Ultrasonic range finder", 2.50, 4),
+        Product("Servo motor", 14.99, 10),
+        Product("Servo Controller", 44.95, 5),
+        Product("Microcontroller Board", 34.95, 7),
+        Product("Laser range finder", 149.99, 2),
+        Product("Lithium polymer battery", 8.99, 8)
+    ]
+
+print(productList[0].getName() + "   " + productList[0].getPrice())
+
+for i in range(0, len(productList)):
+    print("" + i + ") " + productList[i].getName() + "  " + productList[i].getPrice())
+
+
 
 productNames = [ "Ultrasonic range finder"
  , "Servo motor"
@@ -44,7 +62,6 @@ productNames = [ "Ultrasonic range finder"
  ]
 productPrices = [ 2.50, 14.99, 44.95, 34.95, 149.99, 8.99 ]
 productQuantities = [ 4, 10, 5, 7, 2, 8 ]
-
                 
 def printStock():
     print()

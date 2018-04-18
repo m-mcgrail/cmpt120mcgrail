@@ -23,11 +23,6 @@ class Product:
         else:
             return False
 
-    def stockQuantity(self, name, stock):
-        for i in range(0,len(name)):
-            if stock[i] > 0:
-                print("There are", int(stock), name, "left in stock")
-
     #lab 9 part 1.c
     def costTotal(self, count):
         return self.price * count
@@ -46,33 +41,24 @@ productList = [
         Product("Lithium polymer battery", 8.99, 8)
     ]
 
-print(productList[0].getName() + "   " + productList[0].getPrice())
-
-for i in range(0, len(productList)):
-    print("" + i + ") " + productList[i].getName() + "  " + productList[i].getPrice())
-
-
-
-productNames = [ "Ultrasonic range finder"
- , "Servo motor"
- , "Servo controller"
- , "Microcontroller Board"
- , "Laser range finder"
- , "Lithium polymer battery"
- ]
-productPrices = [ 2.50, 14.99, 44.95, 34.95, 149.99, 8.99 ]
-productQuantities = [ 4, 10, 5, 7, 2, 8 ]
-                
+#lab 9 part 3                
 def printStock():
     print()
     print("Available Products")
     print("------------------")
-    for i in range(0,len(productNames)):
-        if productQuantities[i] > 0:
-            print(str(i)+")",productNames[i], "$", productPrices[i])
+    for i in range(0,len(productList)):
+        if productList[i].getQuantity() > 0:
+            print(str(i)+")", productList[i].getProduct(), "$",
+                  productList[i].getPrice(), "->",
+                  productList[i].getQuantity(), "left in stock")
+            
+    print()
+def printIntro():
+    print("This is a computer store!")
     print()
     
 def main():
+    printIntro()
     cash = float(input("How much money do you have? $"))
     while cash > 0:
         printStock()
@@ -80,14 +66,14 @@ def main():
         if vals[0] == "quit": break
         prodId = int(vals[0])
         count = int(vals[1])
-        if productQuantities[prodId] >= count:
-            if cash >= productPrices[prodId]:
-                productQuantities[prodId] -= count
-                cash -= productPrices[prodId] * count
-                print("You purchased", count, productNames[prodId]+".")
+        if productList[prodId].checkStock(count):
+            if cash >= productList[prodId].getPrice():
+                productList[prodId].depleteStock(count)
+                cash -= productList[prodId].costTotal(count)
+                print("You purchased", count, productList[prodId].getProduct()+".")
                 print("You have $", "{0:.2f}".format(cash), "remaining.")
             else:
                 print("Sorry, you cannot afford that product.")
         else:
-            print("Sorry, we are sold out of", productNames[prodId])
+            print("Sorry, we are sold out of", productList[prodId].getProduct())
 main()

@@ -17,8 +17,8 @@ class TGame:
         while not self.gameIsOver():
             if self.server.winsServe():
                 self.server.incScore()
+#instead of switching servers, the other player gets the point
             else:
-            #instead of switching servers, the other player gets the point
                 self.changeServer()
                 self.server.incScore()
                 self.changeServer()
@@ -44,10 +44,12 @@ class TGame:
         if a > b + 2:
             self.setsA = self.setsA + 1
             if a==6 and b == 5:
+                pass
                 #a would need one more set and b would need two
         else:
             self.setsB = self.setsB + 1
             if a ==5 and b == 6:
+                pass
                 #b would need one more set to win, a would need two
                 
     def matchOver(self):

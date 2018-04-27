@@ -1,0 +1,73 @@
+#calc_functions.py
+#project 5 function class
+class Functions:
+    
+    def processButton(key, display, runDisp, memory):
+        text = display.getText()
+        memory = 0
+        base = math.e
+        if key == "<-":
+            display.setText(text[:-1])
+        #fixed the clear button
+        elif key == "C":
+            display.setText("")
+            key = ""
+            text = ""
+        #memory keys
+        elif key == "MC":
+            memory = 0
+        elif key == "M+":
+            memory == memory + text
+        elif key == "M-":
+            memory == memory - text
+        elif key == "MR":
+            display.setText(result)
+        elif key == "MS":
+            memory = display.setText(memory)
+        #science keys
+        elif key == "log":
+            display.setText(math.log10(int(text)))
+        elif key == "x^y":
+            display.setText(int(text)**int(text))
+        elif key == "sin^-1":
+            display.setText(math.asin(int(text)))
+            try:
+                    result = (math.asin(int(text)))
+            except:
+                    print("Unable to divide by 0")
+                    result = 0
+        elif key == "sin":
+            display.setText(math.sin(int(text)))
+        elif key == "cos^-1":
+            display.setText(math.acos(int(text)))
+            try:
+                    result = (math.acos(int(text)))
+            except:
+                    print("Unable to divide by 0")
+                    result = 0
+        elif key == "cos":
+            display.setText(math.cos(int(text)))
+        elif key == "tan^-1":
+            display.setText(math.atan(int(text)))
+            try:
+                    result = (math.atan(int(text)))
+            except:
+                    print("Unable to divide by 0")
+                    result = 0
+        elif key == "tan":
+            display.setText(math.tan(int(text)))
+        elif key == "ln":
+            display.setText(math.log(int(text)))
+        elif key == "10^x":
+            display.setText(10 ** int(text))
+        elif key == "( )":
+            text = [(text)]
+        elif key == "=":
+            try:
+                result = eval(text)
+            except:
+                result = "ERROR"
+            display.setText(result)
+        else:
+            display.setText(text + key)
+         

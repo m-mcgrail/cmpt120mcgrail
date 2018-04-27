@@ -4,7 +4,6 @@ class SimStats:
         self.winsA = 0
         self.winsB = 0
 
-
     def update(self, aGame):
         a, b = aGame.getScores()
         if a > b:
@@ -12,7 +11,6 @@ class SimStats:
 
         else:
             self.winsB = self.winsB + 1
-
                 
     def __printHeading(self):
         print("Summary of", self.winsA + self.winsB, "matches:\n")
@@ -27,6 +25,5 @@ class SimStats:
 
     def printLine(self, label, wins,  n):
         template = "Player {0}:{1:5}"
-
-        print (template.format(label, wins)
+        print (template.format(label, wins))
         
